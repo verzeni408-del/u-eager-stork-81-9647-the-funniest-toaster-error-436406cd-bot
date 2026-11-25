@@ -1,14 +1,20 @@
-"""Toaster error entry writer: one line, no trailing newline."""
+#!/usr/bin/env python3
+"""Write the toaster's error message to /output/entry.txt.
 
-from pathlib import Path
+The toaster holds a grudge: the owner was rude this morning, so it
+burned the toast on purpose and says so on the display. One line,
+no trailing newline.
+"""
 
-ENTRY = "SETTING 11 SELECTED. I am a toaster, not a crematorium."
-ENTRY_PATH = Path("/output/entry.txt")
+import os
+
+ENTRY = "ERROR 402: I burned your toast on purpose. You were rude this morning."
 
 
-def main() -> None:
-    ENTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
-    ENTRY_PATH.write_text(ENTRY, encoding="utf-8")
+def main():
+    os.makedirs("/output", exist_ok=True)
+    with open("/output/entry.txt", "w", encoding="utf-8") as handle:
+        handle.write(ENTRY)
 
 
 if __name__ == "__main__":
